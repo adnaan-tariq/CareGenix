@@ -1,171 +1,271 @@
 # 🐍 GenAI Agents Infrastructure
 
-This repository provides the complete infrastructure for running GenAI agents, including:
+![Build Status](https://img.shields.io/github/workflow/status/genai-works-org/genai-agentos/CI?label=Build&style=flat-square)
+![License](https://img.shields.io/github/license/genai-works-org/genai-agentos?label=License&style=flat-square)
+![Python Version](https://img.shields.io/badge/python-3.8%2B-blue?style=flat-square)
+![Docker](https://img.shields.io/badge/docker-supported-blue?style=flat-square)
 
-* Backend
-* Router
-* Master Agents
-* PostgreSQL Database
-* Frontend
-* CLI
-* Redis
-* Celery
+This repository provides a comprehensive infrastructure for running **GenAI Agents**, designed to streamline the development and deployment of AI-powered agents. The infrastructure includes:
+
+- **Backend**: FastAPI-based backend for handling API requests.
+- **Router**: WebSocket-based routing for agent communication.
+- **Master Agents**: Core agents managing system workflows.
+- **PostgreSQL Database**: Persistent storage for agent data and configurations.
+- **Frontend**: React-based UI for interacting with the system.
+- **CLI**: Command-line interface for managing agents and configurations.
+- **Redis**: In-memory data store for caching and task queuing.
+- **Celery**: Distributed task queue for asynchronous processing.
 
 ## 📎 Repository Link
 
 👉 [GitHub Repository](https://github.com/genai-works-org/genai-agentos)
 
-## 🛠️ Readme Files
+## 📚 Table of Contents
 
-* [CLI](cli/README.md)
-* [Backend](backend/README.md)
-* [Master Agents](master-agent/README.md)
-* [Router](router/README.md)
-* [Frontend](frontend/README.md)
+- [Repository Structure](#-repository-structure)
+- [Supported Agent Types](#-supported-agent-types)
+- [Prerequisites](#-prerequisites)
+- [Local Setup](#-local-setup)
+- [Supported Providers and Models](#-supported-providers-and-models)
+- [Ngrok Setup (Optional)](#-ngrok-setup-optional)
+- [GenAI Agent Registration](#-genai-agent-registration)
+- [Environment Variables](#-environment-variables)
+- [Troubleshooting](#-troubleshooting)
+- [Contributing](#-contributing)
+- [License](#%EF%B8%8F-license)
 
-## 📄️ License
-* [MIT](LICENSE)
+## 📂 Repository Structure
 
+Explore the detailed README files for each component:
+
+- [CLI](cli/README.md): Command-line interface for managing agents.
+- [Backend](backend/README.md): API server for agent interactions.
+- [Master Agents](master-agent/README.md): Core agents for system orchestration.
+- [Router](router/README.md): WebSocket routing for agent communication.
+- [Frontend](frontend/README.md): User interface for interacting with the system.
 
 ## 🧠 Supported Agent Types
 
-The system supports multiple kinds of Agents:
+The system supports multiple types of agents, each with specific integration protocols:
 
-| Agent Type       | Description                                                                                   |
-|------------------|-----------------------------------------------------------------------------------------------|
-| **GenAI Agents** | Connected via [`genai-protocol`](https://pypi.org/project/genai-protocol/) library interface. |
-| **MCP Servers**  | MCP (Model Context Protocol) servers can be added by pasting their URL in the UI.             |
-| **A2A Servers**  | A2A (Agent to Agent Protocol) servers can be added by pasting their URL in the UI.            |
-
----
+| Agent Type       | Description                                                                                   | Integration Method                                      |
+|------------------|-----------------------------------------------------------------------------------------------|--------------------------------------------------------|
+| **GenAI Agents** | Agents connected via the [`genai-protocol`](https://pypi.org/project/genai-protocol/) library. | Configured through the CLI or UI.                      |
+| **MCP Servers**  | Model Context Protocol servers for model interactions.                                        | Add via URL in the UI (e.g., `http://host.docker.internal:8000/mcp`). |
+| **A2A Servers**  | Agent-to-Agent Protocol servers for inter-agent communication.                                | Add via URL in the UI (e.g., `http://host.docker.internal:10002`).    |
 
 ## 📦 Prerequisites
 
-Make sure you have the following installed:
+Ensure the following tools are installed before setting up the project:
 
-* [Docker](https://www.docker.com/)
-* [Docker Compose](https://docs.docker.com/compose/)
-* [`make`](https://www.gnu.org/software/make/) (optional)
-
-  * macOS: `brew install make`
-  * Linux: `sudo apt-get install make`
+- **[Docker](https://www.docker.com/)**: Containerization platform for running services.
+- **[Docker Compose](https://docs.docker.com/compose/)**: Tool for defining and running multi-container Docker applications.
+- **[`make`](https://www.gnu.org/software/make/)** (optional):
+  - macOS: Install via `brew install make`
+  - Linux: Install via `sudo apt-get install make`
+- **Python 3.8+**: Required for running the CLI and agent scripts.
+- **Git**: For cloning the repository.
 
 ## 🚀 Local Setup
 
-1. Clone the repository:
+Follow these steps to set up the infrastructure locally:
+
+1. **Clone the Repository**:
 
    ```bash
    git clone https://github.com/genai-works-org/genai-agentos.git
-   cd genai-agentos/
-   ```
+   cd genai-agentම
 
-2. Create a `.env` file by copying the example (can be empty and customized later):
+2. **Configure Environment Variables**:
+
+Copy the example .env file and customize it as needed:
 
    ```bash
    cp .env-example .env
    ```
 
-   * A `.env` file **should be present** for configuration.
-   * All variables in `.env-example` are commented.
-     You can customize any environment setting by **uncommenting** the relevant line and providing a new value.
+   - A .env file is required for configuration.
+   - Variables in .env-example are commented. Uncomment and modify the relevant lines to customize settings (e.g., database credentials, ports).
 
-3. Start Docker desktop and ensure it is running.
+3. **Start Docker Desktop**:
 
-4. Start the infrastructure:
+Ensure Docker Desktop is running on your machine.
+
+4. **Launch the Infrastructure**:
+
+Use either of the following commands to start all services:
 
    ```bash
    make up
-   # or alternatively
+   ```
+
+or
+
+   ```bash
    docker compose up
    ```
 
-5. After startup:
+5. **Access the Application**:
 
-   * Frontend UI: [http://localhost:3000/](http://localhost:3000/)
-   * Swagger API Docs: [http://localhost:8000/docs#/](http://localhost:8000/docs#/)
+Once the services are running, access the following endpoints:
+
+- **Frontend UI**: http://localhost:3000/
+- **Swagger API Docs**: http://localhost:8000/docs#/
 
 ## 👾 Supported Providers and Models
-* OpenAI: gpt-4o
+
+The system currently supports the following AI providers and models:
+
+- **OpenAI**: gpt-4o
+
+Additional providers and models can be integrated by extending the genai-protocol library.
 
 ## 🌐 Ngrok Setup (Optional)
 
-Ngrok can be used to expose the local WebSocket endpoint.
+Ngrok allows you to expose your local WebSocket endpoint to the internet for testing or remote access.
 
-1. Install Ngrok:
+### Install Ngrok
 
-   * macOS (Homebrew): `brew install ngrok/ngrok/ngrok`
-   * Linux: `sudo snap install ngrok`
+```bash
+# macOS (Homebrew)
+brew install ngrok/ngrok/ngrok
 
-2. Authenticate Ngrok:
+# Linux
+sudo snap install ngrok
+```
 
-   * Sign up or log in at [ngrok dashboard](https://dashboard.ngrok.com).
-   * Go to the **"Your Authtoken"** section and copy the token.
-   * Run the command:
+### Authenticate Ngrok
 
-     ```bash
-     ngrok config add-authtoken <YOUR_AUTH_TOKEN>
-     ```
+1. Sign up or log in at the [Ngrok Dashboard](https://dashboard.ngrok.com/)
+2. Copy your authtoken from the "Your Authtoken" section
+3. Configure Ngrok with the token:
 
-3. Start a tunnel to local port 8080:
+```bash
+ngrok config add-authtoken <YOUR_AUTH_TOKEN>
+```
 
-   ```bash
-   ngrok http 8080
-   ```
+### Start a Tunnel
 
-4. Copy the generated WebSocket URL and update the `ws_url` field in:
+Expose the local WebSocket server running on port 8080:
 
-   ```
-   genai_session.session.GenAISession
-   ```
+```bash
+ngrok http 8080
+```
 
----
+### Update WebSocket URL
 
-## 🤖GenAI Agent registration quick start (For more data check [CLI](cli/README.md))
+Copy the generated WebSocket URL (e.g., `wss://<ngrok-id>.ngrok.io`) and update the ws_url field in:
+
+```text
+genai_session.session.GenAISession
+```
+
+## 🤖 GenAI Agent Registration
+
+Quickly register and run a GenAI agent using the CLI. For detailed instructions, see CLI README.
+
+### Navigate to the CLI Directory
+
 ```bash
 cd cli/
+```
 
-python cli.py signup -u <username> # Register a new user, also available in [UI](http://localhost:3000/)
+### Register a New User
 
-python cli.py login -u <username> -p <password> # Login to the system, get JWT user token
+```bash
+python cli.py signup -u <username>
+```
 
+Alternatively, register via the UI at http://localhost:3000/.
+
+### Log In
+
+```bash
+python cli.py login -u <username> -p <password>
+```
+
+This returns a JWT token for authentication.
+
+### Register an Agent
+
+```bash
 python cli.py register_agent --name <agent_name> --description <agent_description>
+```
 
+### Run the Agent
+
+Navigate to the agents directory and run the agent script:
+
+```bash
 cd agents/
+uvicorn run python <agent_name>.py
+```
 
-# Run the agent
-uv run python <agent_name>.py # or alternatively 
-python <agent_name>.py 
+or
+
+```bash
+python <agent_name>.py
 ```
 
 ## 💎 Environment Variables
 
-| Variable                    | Description                                                          | Example / Default                                                                       |
-|-----------------------------|----------------------------------------------------------------------|-----------------------------------------------------------------------------------------|
-| `FRONTEND_PORT`             | Port to start a frontend                                             | `3000` - default. Can be changed by run in terminal ` source FRONTEND_PORT=<your_port>` |
-| `ROUTER_WS_URL`             | WebSocket URL for the `router` container                             | `ws://genai-router:8080/ws` - host is either `localhost` or `router` container name     |
-| `SECRET_KEY`                | Secret key for cryptographic operations - JWT/ LLM config encryption | `$(openssl rand -hex 32)`                                                               |
-| `POSTGRES_HOST`             | PostgreSQL Host                                                      | `genai-postgres`                                                                        |
-| `POSTGRES_USER`             | PostgreSQL Username                                                  | `postgres`                                                                              |
-| `POSTGRES_PASSWORD`         | PostgreSQL Password                                                  | `postgres`                                                                              |
-| `POSTGRES_DB`               | PostgreSQL Database Name                                             | `postgres`                                                                              |
-| `POSTGRES_PORT`             | PostgreSQL Port                                                      | `5432`                                                                                  |
-| `DEBUG`                     | Enable/disable debug mode - Server/ ORM logging                      | `True` / `False`                                                                        |
-| `MASTER_AGENT_API_KEY`      | API key for the Master Agent - internal identifier                   | `e1adc3d8-fca1-40b2-b90a-7b48290f2d6a::master_server_ml`                                |
-| `MASTER_BE_API_KEY`         | API key for the Master Backend - internal identifier                 | `7a3fd399-3e48-46a0-ab7c-0eaf38020283::master_server_be`                                |
-| `BACKEND_CORS_ORIGINS`      | Allowed CORS origins for the `backend`                               | `["*"]`, `["http://localhost"]`                                                         |
-| `DEFAULT_FILES_FOLDER_NAME` | Default folder for file storage - Docker file volume path            | `/files`                                                                                |
-| `CLI_BACKEND_ORIGIN_URL`    | `backend` URL for CLI access                                         | `http://localhost:8000`                                                                 |
+The following environment variables can be configured in the .env file:
+
+| Variable | Description | Example / Default |
+|----------|-------------|-------------------|
+| FRONTEND_PORT | Port for the frontend service | 3000 |
+| ROUTER_WS_URL | WebSocket URL for the router container | ws://genai-router:8080/ws |
+| SECRET_KEY | Secret key for JWT and LLM config encryption | $(openssl rand -hex 32) |
+| POSTGRES_HOST | PostgreSQL host | genai-postgres |
+| POSTGRES_USER | PostgreSQL username | postgres |
+| POSTGRES_PASSWORD | PostgreSQL password | postgres |
+| POSTGRES_DB | PostgreSQL database name | postgres |
+| POSTGRES_PORT | PostgreSQL port | 5432 |
+| DEBUG | Enable/disable debug mode for server/ORM logging | True / False |
+| MASTER_AGENT_API_KEY | API key for the Master Agent | e1adc3d8-fca1-40b2-b90a-7b48290f2d6a::master_server_ml |
+| MASTER_BE_API_KEY | API key for the Master Backend | 7a3fd399-3e48-46a0-ab7c-0eaf38020283::master_server_be |
+| BACKEND_CORS_ORIGINS | Allowed CORS origins for the backend | ["*"], ["http://localhost"] |
+| DEFAULT_FILES_FOLDER_NAME | Default folder for file storage (Docker volume path) | /files |
+| CLI_BACKEND_ORIGIN_URL | Backend URL for CLI access | http://localhost:8000 |
+
+To override the default FRONTEND_PORT, run:
+
+```bash
+source FRONTEND_PORT=<your_port>
+```
 
 ## 🛠️ Troubleshooting
 
-### ❓ MCP server or A2A card URL could not be accessed by the genai-backend
-✅ If your MCP server or A2A card is hosted on your local machine, make sure to change the host name from `http://localhost:<your_port>` to `http://host.docker.internal:<your_port>` and try again.
+### ❓ MCP Server or A2A Card URL Not Accessible by genai-backend
 
-🔎 **Also make sure to pass the full url of your MCP server or A2A card, such as - `http://host.docker.internal:8000/mcp` for MCP or `http://host.docker.internal:10002` for A2A**
+**✅ Solution**: If your MCP server or A2A card is hosted locally, replace `http://localhost:<your_port>` with `http://host.docker.internal:<your_port>` in the URL.
 
-⚠️ No need to specify `/.well-known/agent.json` for your A2A card as `genai-backend` will do it for you!
+**🔎 Example:**
+- MCP: `http://host.docker.internal:8000/mcp`
+- A2A: `http://host.docker.internal:10002`
 
-### ❓ My MCP server with valid host cannot be accessed by the genai-backend 
-✅ Make sure your MCP server supports `streamable-http` protocol and is remotely accessible.Also make sure that you're specifiying full URL of your server, like - `http://host.docker.internal:8000/mcp`
+**⚠️ Note**: Do not append `/.well-known/agent.json` for A2A cards; the genai-backend handles this automatically.
 
-⚠️ Side note: `sse` protocol is officially deprecated by MCP protocol devs, `stdio` protocol is not supported yet, but stay tuned for future announcements!
+### ❓ MCP Server with Valid Host Not Accessible
+
+**✅ Solution:**
+1. Ensure the MCP server supports the streamable-http protocol and is remotely accessible.
+2. Verify the full URL is specified (e.g., `http://host.docker.internal:8000/mcp`).
+
+**⚠️ Note**: The sse protocol is deprecated, and stdio is not yet supported. Stay tuned for updates.
+
+## 🤝 Contributing
+
+We welcome contributions to improve the GenAI Agents Infrastructure! To contribute:
+
+1. Fork the repository.
+2. Create a new branch (`git checkout -b feature/your-feature`).
+3. Make your changes and commit (`git commit -m "Add your feature"`).
+4. Push to the branch (`git push origin feature/your-feature`).
+5. Open a pull request.
+
+Please ensure your code follows the project's coding standards and includes appropriate tests.
+
+## 📄️ License
+
+This project is licensed under the MIT License.
