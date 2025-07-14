@@ -1,0 +1,9 @@
+[project]
+name = "medical_records_agent"
+version = "0.1.0"
+description = "Agent for organizing and analyzing patient medical records."
+authors = ["Your Name <your.email@example.com>"]
+requires-python = ">=3.8"
+
+[tool.setuptools]
+packages = ["medical_records_agent"] 
