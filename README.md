@@ -129,9 +129,7 @@ Caregenix automates the patient care journey with a pipeline of intelligent AI a
 
 ### Landing Page  
 _Intuitive navigation and healthcare services._
-
-### Dashboard  
-_Interactive dashboard for patient management._
+<img src="https://github.com/adnaan-tariq/CareGenix/blob/main/homepage.png" alt="ImageNotFound">
 
 ---
 
