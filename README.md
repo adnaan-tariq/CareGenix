@@ -177,7 +177,7 @@ We welcome contributions to enhance Caregenix! Follow these steps:
 4. Push to the branch (`git push origin feature/your-feature`) 🚀  
 5. Open a Pull Request 📬  
 
-Please adhere to the Code of Conduct and ensure code follows ESLint rules.
+Please follow the Code of Conduct and make sure the code follows the ESLint rules.
 
 ---
 
@@ -195,7 +195,7 @@ For questions or feedback, reach out via:
 - **Email**:  
   - khaqannnasir01@gmail.com 📧  
   - adnantariq966@gmail.com 📧  
-  - chaudhryibtisam2004@gmail.com 📧  
+  - ibtisamafzal001@gmail.com 📧  
 
 ---
 
