@@ -25,19 +25,33 @@ Caregenix is a transformative healthcare platform powered by five autonomous AI 
 ---
 
 ## 📋 Table of Contents
-- [Project Overview](#project-overview)
-- [Key Features](#key-features)
-- [Patient Care Journey](#patient-care-journey)
-- [AI Agents](#meet-our-ai-agents)
-- [Measurable Impact](#measurable-impact)
-- [Tech Stack](#tech-stack)
-- [Screenshots](#screenshots)
-- [UN Sustainable Development Goals](#un-sustainable-development-goals)
-- [GenAI.Works Hackathon](#genaiworks-hackathon-excellence)
-- [Contributing](#contributing)
-- [License](#license)
-- [Contact](#contact)
-- [Acknowledgments](#acknowledgments)
+- [Caregenix - Healthcare Accessibility Platform 🌐](#caregenix---healthcare-accessibility-platform-)
+  - [📋 Table of Contents](#-table-of-contents)
+  - [📖 Project Overview](#-project-overview)
+  - [✨ Key Features](#-key-features)
+  - [🩻 Patient Care Journey](#-patient-care-journey)
+  - [🤖 Meet Our AI Agents](#-meet-our-ai-agents)
+  - [📊 Measurable Impact](#-measurable-impact)
+  - [🛠️ Tech Stack](#️-tech-stack)
+  - [⚡ Prerequisites](#-prerequisites)
+  - [🚀 Local Setup](#-local-setup)
+  - [🤖 Setting Up GenAI Agents](#-setting-up-genai-agents)
+    - [1. Navigate to the CLI Directory](#1-navigate-to-the-cli-directory)
+    - [2. Register a New User (if you haven't already)](#2-register-a-new-user-if-you-havent-already)
+    - [3. Log In](#3-log-in)
+    - [4. Register a New Agent](#4-register-a-new-agent)
+    - [5. Set Up the Agent's Environment](#5-set-up-the-agents-environment)
+    - [6. Run the Agent](#6-run-the-agent)
+    - [Advanced: Register Agent via API](#advanced-register-agent-via-api)
+  - [🖼️ Screenshots](#️-screenshots)
+    - [Landing Page](#landing-page)
+  - [🌍 UN Sustainable Development Goals](#-un-sustainable-development-goals)
+  - [🏆 GenAI.Works Hackathon Excellence](#-genaiworks-hackathon-excellence)
+  - [🔗 Explore](#-explore)
+  - [🤝 Contributing](#-contributing)
+  - [📜 License](#-license)
+  - [📬 Contact](#-contact)
+  - [🙌 Acknowledgments](#-acknowledgments)
 
 ---
 
@@ -122,6 +136,123 @@ Caregenix automates the patient care journey with a pipeline of intelligent AI a
 | Automation      | N8N (78%)                                |
 | Healthcare      | FHIR (88%)                               |
 | Tools           | VS Code (94%), Notion (85%), Cloudera (70%) |
+
+---
+
+## ⚡ Prerequisites
+
+Before you begin, ensure you have the following installed:
+
+- **[Docker](https://www.docker.com/)**: For containerized services.
+- **[Docker Compose](https://docs.docker.com/compose/)**: For multi-container orchestration.
+- **Python 3.8+**: For running CLI and agent scripts.
+- **Git**: For cloning the repository.
+
+---
+
+## 🚀 Local Setup
+
+Follow these steps to run Caregenix locally:
+
+1. **Clone the Repository**:
+
+   ```bash
+   git clone https://github.com/adnaan-tariq/CareGenix.git
+   cd CareGenix
+   ```
+
+2. **Start Docker Desktop**:
+
+   Make sure Docker Desktop is running.
+
+3. **Launch the Application**:
+
+   Use Docker Compose to start all services:
+
+   ```bash
+   docker compose up
+   ```
+
+   This will start the backend, frontend, database, and other required services.
+
+4. **Access the Application**:
+
+   - **Frontend UI**: http://localhost:3000/
+   - **API Docs**: http://localhost:8000/docs
+
+
+---
+
+## 🤖 Setting Up GenAI Agents
+
+Caregenix supports modular, autonomous GenAI agents. You can register, generate, and run agents using the built-in CLI.
+
+### 1. Navigate to the CLI Directory
+
+```bash
+cd cli/
+```
+
+### 2. Register a New User (if you haven't already)
+
+```bash
+python cli.py signup -u <your_username>
+```
+
+Or use the UI at [http://localhost:3000/](http://localhost:3000/).
+
+### 3. Log In
+
+```bash
+python cli.py login -u <your_username> -p <your_password>
+```
+
+This will store your JWT token for agent operations.
+
+### 4. Register a New Agent
+
+```bash
+python cli.py register_agent --name <agent_name> --description "<agent_description>"
+```
+
+- This registers the agent in the backend and generates a starter Python file in `cli/agents/<agent_name>/<agent_name>.py`.
+
+### 5. Set Up the Agent's Environment
+
+```bash
+cd agents/<agent_name>
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+pip install -r requirements.txt  # If a requirements file is provided
+```
+
+Or use [uv](https://github.com/astral-sh/uv) for fast environment setup:
+
+```bash
+uv venv
+uv sync
+```
+
+### 6. Run the Agent
+
+```bash
+python <agent_name>.py
+```
+
+Or, to run all agents in parallel:
+
+```bash
+cd ../..
+python cli.py run_agents
+```
+
+---
+
+### Advanced: Register Agent via API
+
+1. Go to [http://localhost:8000/docs](http://localhost:8000/docs).
+2. Use `/api/agents/register` to register an agent.
+3. Use the returned JWT in your agent code.
 
 ---
 
