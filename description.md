@@ -35,7 +35,7 @@ This project is a next-generation, open-source agent orchestration platform desi
 
 ## Integration with External Tools
 - **n8n:** Used for sending automated, customizable email notifications. The Patient Intake Agent triggers an n8n webhook with patient details, and n8n handles the email delivery.
-
+- **Claude Desktop (Optional):** The system is designed to support routing complex queries to external LLMs like Claude Desktop via MCP, enabling advanced reasoning and second opinions.
 
 ## Technical Stack
 - **Backend:** Python, FastAPI, SQLAlchemy, Celery, WebSockets
@@ -73,3 +73,7 @@ This project is a next-generation, open-source agent orchestration platform desi
 ## Acknowledgements
 - Built with inspiration from the open-source GenAI, n8n, and agent orchestration communities.
 - Special thanks to hackathon mentors, contributors, and testers.
+
+---
+
+For more details, see the project README and code documentation. 
